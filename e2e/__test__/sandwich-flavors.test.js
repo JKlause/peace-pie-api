@@ -20,6 +20,33 @@ describe('sandwich flavor api', () => {
       .then(sandwichFlavor => sandwichFlavor);
   }
   
+  
+  it('posts a sandwich flavor', () => {
+    return request
+      .post('/api/sandwich-flavors')
+      .send(sandwichFlavor)
+      .expect(200)
+      .then(sandwichFlavor => {
+        expect(sandwichFlavor.body).toMatchInlineSnapshot(
+          {
+            _id: expect.any(String)
+          },
+          `
+        Object {
+          "__v": 0,
+          "_id": Any<String>,
+          "cookies": "cinnamon",
+          "iceCream": "vanilla",
+          "name": "Key Lime Pie",
+          "toppings": Array [
+            "key lime",
+          ],
+        }
+        `
+        );
+      });
+  });
+    
   it('gets a list of flavors', () => {
     return Promise.all([
       postSandwichFlavor(sandwichFlavor),
@@ -36,49 +63,22 @@ describe('sandwich flavor api', () => {
             _id: expect.any(String)
           },
           `
-          Object {
-            "__v": 0,
-            "_id": Any<String>,
-            "cookies": "cinnamon",
-            "iceCream": "vanilla",
-            "name": "Key Lime Pie",
-            "toppings": Array [
-              "key lime",
-            ],
-          }
-        `
-        );
-      });
-  });
-  
-  it('posts a sandwich flavor', () => {
-    return request
-      .post('/api/sandwich-flavors')
-      .send(sandwichFlavor)
-      .expect(200)
-      .then(sandwichFlavor => {
-        expect(sandwichFlavor.body).toMatchInlineSnapshot(
-          {
-            _id: expect.any(String)
-          },
+            Object {
+              "__v": 0,
+              "_id": Any<String>,
+              "cookies": "cinnamon",
+              "iceCream": "vanilla",
+              "name": "Key Lime Pie",
+              "toppings": Array [
+                "key lime",
+              ],
+            }
           `
-          Object {
-            "__v": 0,
-            "_id": Any<String>,
-            "cookies": "cinnamon",
-            "iceCream": "vanilla",
-            "name": "Key Lime Pie",
-            "toppings": Array [
-              "key lime",
-            ],
-          }
-        `
         );
       });
   });
-
-
-  // it('it gets a sandwich flavor by id', {
-
-  // })
+    
+    // it('it gets a sandwich flavor by id', {
+      
+      // })
 });
